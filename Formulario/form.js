@@ -133,8 +133,7 @@ if (valid) {
 // Si todo es válido, guardar en localStorage
     // localStorage.setItem("nombre", txtNombre.value);
 
-    // // Opcional: Mostrar un mensaje de éxito
-    // alert("Formulario enviado correctamente!");
+ 
 
 
 txtNombre.addEventListener("blur",function(event){
