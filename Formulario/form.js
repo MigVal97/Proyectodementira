@@ -89,11 +89,42 @@ btnEnviar.addEventListener("click", function(event) {
 
 // contador++;
 // localStorage.setItem("contador",contador);    
-localStorage.setItem("nombre", txtNombre.value);
-localStorage.setItem("apellido", txtApellido.value);
-localStorage.setItem("telefono", txtTelefono.value);
-localStorage.setItem("correo", txtCorreo.value);
-localStorage.setItem("mensaje", txtMensaje.value);
+// localStorage.setItem("nombre", txtNombre.value);
+// localStorage.setItem("apellido", txtApellido.value);
+// localStorage.setItem("telefono", txtTelefono.value);
+// localStorage.setItem("correo", txtCorreo.value);
+// localStorage.setItem("mensaje", txtMensaje.value);
+
+if (valid) {
+    // Obtener datos existentes de localStorage
+    let registros = JSON.parse(localStorage.getItem("registros")) || 0;
+
+    // Crear un nuevo registro
+    const nuevoRegistro = {
+        nombre: txtNombre.value,
+        apellido: txtApellido.value,
+        telefono: txtTelefono.value,
+        correo: txtCorreo.value,
+        mensaje: txtMensaje.value
+    };
+
+    // Agregar el nuevo registro al arreglo
+    registros.push(nuevoRegistro);
+
+    // Guardar el arreglo actualizado en localStorage
+    localStorage.setItem("registros", JSON.stringify(registros));
+
+    // Mostrar mensaje de éxito
+    alert("Formulario enviado correctamente!");
+    
+    // Limpiar los campos después de enviar
+    txtNombre.value = "";
+    txtApellido.value = "";
+    txtTelefono.value = "";
+    txtCorreo.value = "";
+    txtMensaje.value = "";
+}
+
 
 });//boton
     
