@@ -97,7 +97,7 @@ btnEnviar.addEventListener("click", function(event) {
 
 if (valid) {
     // Obtener datos existentes de localStorage
-    let registros = JSON.parse(localStorage.getItem("registros")) || 0;
+    let registros = JSON.parse(localStorage.getItem("registros")) || [];
 
     // Crear un nuevo registro
     const nuevoRegistro = {
