@@ -4,6 +4,8 @@ const btnEnviar = document.getElementById("btnEnviar");
 const alertValidaciones = document.getElementById("alertValidaciones");
 const alertValidacionesTexto=document.getElementById("alertValidacionesTexto")
 const txtTelefono=document.getElementById("txtTelefono");
+const txtCorreo=document.getElementById("txtCorreo");
+const txtMensaje=document.getElementById("txtMensaje");
 
 let valid = true; // Variable para controlar la validez del formulario
 
@@ -24,6 +26,12 @@ if(Number(txtTelefono.value)<=0){
 return true;
 }//functionvalidarTelefono
 
+function validarCorreo() {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+(\.[a-zA-Z]{2,})$/;
+    return emailPattern.test(txtCorreo.value) && !/\.{2,}/.test(txtCorreo.value.split('@')[1]);
+}//validarCorreo
+
+
 
 
 btnEnviar.addEventListener("click", function(event) {
@@ -31,6 +39,8 @@ btnEnviar.addEventListener("click", function(event) {
     txtNombre.style.border ="";
     txtApellido.style.border ="";
     txtTelefono.style.border="";
+    txtCorreo.style.border = "";
+    txtMensaje.style.border = "";
      alertValidacionesTexto.innerHTML="";
     alertValidaciones.style.display="none";
     
@@ -54,11 +64,42 @@ btnEnviar.addEventListener("click", function(event) {
         txtTelefono.style.border="solid red medium";
         alertValidacionesTexto.innerHTML+="El número telefónico ingresado no es correcto<br>"
         alertValidaciones.style.display="block";
+        valid=false;
     }//validarTelefono
 
+    if (!validarCorreo()) {
+        txtCorreo.style.border = "solid red medium";
+        alertValidacionesTexto.innerHTML += "El correo electrónico ingresado no es válido<br>";
+        alertValidaciones.style.display = "block";
+        valid = false;
+    }//validarCorreo
+    
+    if (txtMensaje.value.length < 20) {
+        txtMensaje.style.border = "solid red medium";
+        alertValidacionesTexto.innerHTML += "El mensaje debe contener al menos 20 caracteres<br>";
+        alertValidaciones.style.display = "block";
+        valid = false;
+    }//Validación mensaje
+
+    // Swal.fire({
+    //     title: "Enviado!",
+    //     text: "Tu correo fue enviado!",
+    //     icon: "success"
+    // });
+
+// contador++;
+// localStorage.setItem("contador",contador);    
+localStorage.setItem("nombre", txtNombre.value);
+localStorage.setItem("apellido", txtApellido.value);
+localStorage.setItem("telefono", txtTelefono.value);
+localStorage.setItem("correo", txtCorreo.value);
+localStorage.setItem("mensaje", txtMensaje.value);
 
 });//boton
-    // Si todo es válido, guardar en localStorage
+    
+
+
+// Si todo es válido, guardar en localStorage
     // localStorage.setItem("nombre", txtNombre.value);
 
     // // Opcional: Mostrar un mensaje de éxito
@@ -69,5 +110,14 @@ txtNombre.addEventListener("blur",function(event){
     txtNombre.value=txtNombre.value.trim();
 })//blur nombre
 txtApellido.addEventListener("blur",function(event){
-    txtApellido.value=txtNombre.value.trim();
+    txtApellido.value=txtApellido.value.trim();
 })//blur apellido
+txtTelefono.addEventListener("blur",function(event){
+    txtTelefono.value=txtTelefono.value.trim();
+})//blur telefono
+txtCorreo.addEventListener("blur",function(event){
+    txtCorreo.value=txtCorreo.value.trim();
+})//blur correo
+txtMensaje.addEventListener("blur", function(event) {
+    txtMensaje.value = txtMensaje.value.trim();
+});
